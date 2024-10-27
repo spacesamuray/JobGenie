@@ -2,6 +2,10 @@ from openai import OpenAI
 
 class SpeakWithGPT:
 
+    client : OpenAI
+    model : str
+    system_role : str
+
     def __init__(self,model="gpt-4o-mini",system_role="You are a helpful assistant") -> None:
         self.client = OpenAI()
         self.model = model

@@ -13,8 +13,10 @@ class WebScraper:
         self.HTML = [BeautifulSoup(requests.get(url).text, 'html.parser') for url in self.URLS]
 
     #for testing, it is built for jobs.ge
-    def fetch_applications(self) -> list:
+    #this part should be taken cared by chatgpt which evaluates and writes unique selector for any sites we pass in
+    def fetch_applications_(self) -> list:
         """
+        This method takes each table row from whole html and turns it into a list[Bs4<object>]
         :return: list of table data elements
         """
         table_rows = self.HTML[0].select(".regularEntries tr")
@@ -22,11 +24,11 @@ class WebScraper:
 
     def turn_into_list(self) -> list[dict[str, str]]:
         """
-        method is responsible for turning raw HTML into a list of dictionaries.
+        This method is responsible for turning raw HTML into a list of dictionaries.
         :return: list[dict[str, str]]
         """
         application_list : list[dict[str,str]] = []
-        for table_data in self.fetch_applications():
+        for table_data in self.fetch_applications_():
             link = table_data.find("a")
             application_list.append(
                 {
@@ -35,13 +37,3 @@ class WebScraper:
                 }
             )
         return application_list
-
-    # @staticmethod
-    # def get_html(url) -> BeautifulSoup:
-    #     """
-    #     Returns a BeautifulSoup object from a given URL.
-    #     :param url: desired url to return html
-    #     :return: BeautifulSoup object which contains html of desired url
-    #     """
-    #     response = requests.get(url)
-    #     return BeautifulSoup(response.text, 'html.parser')

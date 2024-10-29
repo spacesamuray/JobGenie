@@ -11,7 +11,7 @@ class SpeakWithGPT:
         self.model = model
         self.system_role = system_role
 
-    #add expected value parameter
+    #todo add expected value parameter
     def prompt(self, prompt):
         """
         This function is responsible for handling tasks that are given to GPT

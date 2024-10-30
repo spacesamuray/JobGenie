@@ -7,6 +7,8 @@ class WebScraper:
     TITLES_URLS : list[str]
     TITLES_HTML : list[BeautifulSoup]
 
+    APPLICATIONS_HTML : list[BeautifulSoup]
+
 
     def __init__(self, urls):
         self.DOMAIN_ROOTS = [f"{url[:8]}{url[8::].split('/')[0]}" for url in urls] # This is constructing url root for future usage
@@ -45,8 +47,17 @@ class WebScraper:
         This method is responsible for turning BeautifulSoups objects into a list of dictionaries.
         :return: list[dict[str, str]]
         """
-        # pages_list : list[dict[str,str]] = []
-        pass
+        pages_list : list[dict[str,str]] = []
+        for page in self.APPLICATIONS_HTML:
+            data = page.select("#job table tr table")[1].select("tr")[3].getText()
+            title = data.split("\n")[0]
+            application = {
+                "title": title,
+                "data": data
+            }
+            pages_list.append(application)
+
+        return pages_list
 
 
     @staticmethod

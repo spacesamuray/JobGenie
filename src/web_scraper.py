@@ -10,7 +10,7 @@ class WebScraper:
     def __init__(self, urls):
         self.DOMAIN_ROOTS = [f"{url[:8]}{url[8::].split('/')[0]}" for url in urls] # This is constructing url root for future usage
         self.URLS = urls
-        self.HTML = [BeautifulSoup(requests.get(url).text, 'html.parser') for url in self.URLS]
+        self.HTML = self.scrap_web(self.URLS)#[BeautifulSoup(requests.get(url).text, 'html.parser') for url in self.URLS]
 
     #for testing, it is built for jobs.ge
     #this part should be taken cared by chatgpt which evaluates and writes unique selector for any sites we pass in
@@ -37,3 +37,7 @@ class WebScraper:
                 }
             )
         return application_list
+
+    @staticmethod
+    def scrap_web(urls : list[str]) -> list[BeautifulSoup]:
+        return [BeautifulSoup(requests.get(url).text,"html.parser") for url in urls]

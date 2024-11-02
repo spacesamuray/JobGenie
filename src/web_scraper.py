@@ -49,7 +49,7 @@ class WebScraper:
         pages_list : list[dict[str,str]] = []
         for page in self.APPLICATIONS_HTML:
             data = page.select("#job table tr table")[1].select("tr")[3].getText()
-            title = data.split("\n")[0]
+            title = page.select(".dtitle")[0].getText().split("\n")[2] # This finds title of application
             application = {
                 "title": title,
                 "data": data

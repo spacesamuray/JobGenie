@@ -6,7 +6,7 @@ class Selector:
     @staticmethod
     def select_titles(gpt_model : SpeakWithGPT, titles : list[dict[str,str]]) -> list[dict[str,str]]:
         """
-        This method is responsible for selecting applications that are useful for user
+        This method is responsible for selecting titles that are useful for user
         :param gpt_model:
         :param titles:
         :return: list[dict[str,str]]
@@ -17,6 +17,7 @@ class Selector:
                 new_applications.append(application)
                 print(application)
         return new_applications
+
     @staticmethod
     def select_application(gpt_model : SpeakWithGPT,applications : list[dict[str,str]]):
         """
@@ -26,13 +27,13 @@ class Selector:
         :param applications:
         :return:
         """
-        emails : list[dict[str,str]]= []
+        emails : list[dict[str,str]] = []
         for application in applications:
-            prompt = gpt_model.prompt(application).choices[0].message.content
-            if prompt != '0':
+            response = gpt_model.prompt(application).choices[0].message.content
+            if response != '0':
                 item = {
                     "title": application["title"],
-                    "email": prompt,
+                    "email": response,
                 }
                 emails.append(item)
         return emails

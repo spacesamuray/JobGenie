@@ -31,7 +31,9 @@ applications_bs4_list = web_scraper.scrap_web(applications_urls)
 web_scraper.APPLICATIONS_HTML = applications_bs4_list #todo refactor this code so that it could be understandable
 applications = web_scraper.turn_applications_into_list()
 print(applications)
-# useful_applications = Selector.select_application(gpt_model=gpt_application_analyzer)
+useful_applications = Selector.select_application(gpt_model=gpt_application_analyzer,applications=applications)
+# for useful_application in useful_applications:
+#     print(useful_application)
 # print(useful_titles)
 
 

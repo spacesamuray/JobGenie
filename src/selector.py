@@ -18,6 +18,17 @@ class Selector:
                 print(application)
         return new_applications
 
+    #this method is useless bc of my mistake in WebScraper class where I don't considered this case
+    #to make this method useful we need to change how WebScraper class operates more specifically turning bs4 objects into lists
+    #methods: turn_applications_into_list(),turn_titles_into_list()
+    @staticmethod
+    def analyze_data(gpt_model : SpeakWithGPT,applications : list[dict[str,str]]):
+        evaluated_data : list[dict[str,str]] = []
+        for application in applications:
+            response = gpt_model.prompt(application).choices[0].message.content
+            if response != '1':
+                pass
+
     @staticmethod
     def select_application(gpt_model : SpeakWithGPT,applications : list[dict[str,str]]):
         """

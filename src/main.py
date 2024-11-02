@@ -1,6 +1,5 @@
 import dotenv
 import os
-
 import requests
 
 from speaak_with_gpt import SpeakWithGPT
@@ -27,11 +26,11 @@ gpt_application_analyzer = SpeakWithGPT(system_role=gpt_application_analyzer_rol
 
 useful_titles = Selector.select_titles(gpt_model=gpt_title_analyzer, titles=applications)
 
-# applications_html = [requests.get(title["url"]).text for title in useful_titles]
-# applications_bs4_list = web_scraper.scrap_web(applications_html)
-# web_scraper.APPLICATIONS_HTML = applications_bs4_list
-# applications = web_scraper.turn_titles_into_list()
-# print(applications)
+applications_urls = [title["url"] for title in useful_titles]
+applications_bs4_list = web_scraper.scrap_web(applications_urls)
+web_scraper.APPLICATIONS_HTML = applications_bs4_list #todo refactor this code so that it could be understandable
+applications = web_scraper.turn_applications_into_list()
+print(applications)
 # useful_applications = Selector.select_application(gpt_model=gpt_application_analyzer)
 # print(useful_titles)
 

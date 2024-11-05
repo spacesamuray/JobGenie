@@ -41,20 +41,24 @@ class WebScraper:
             )
         return application_list
 
-    def turn_applications_into_list(self) -> list[dict[str, str]]:
+    @staticmethod
+    def turn_applications_into_list(applications_html) -> list[dict[str, str]]:
         """
         This method is responsible for turning BeautifulSoups objects into a list of dictionaries.
         :return: list[dict[str, str]]
         """
         pages_list : list[dict[str,str]] = []
-        for page in self.APPLICATIONS_HTML:
-            data = page.select("#job table tr table")[1].select("tr")[3].getText()
-            title = page.select(".dtitle")[0].getText().split("\n")[2] # This finds title of application
-            application = {
-                "title": title,
-                "data": data
-            }
-            pages_list.append(application)
+        for page in applications_html:
+            try:
+                data = page.select("#job table tr table")[1].select("tr")[3].getText()
+                title = page.select(".dtitle")[0].getText().split("\n")[2] # This finds title of application
+                application = {
+                    "title": title,
+                    "data": data
+                }
+                pages_list.append(application)
+            except IndexError:
+                pass
 
         return pages_list
 

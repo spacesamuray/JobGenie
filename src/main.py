@@ -5,6 +5,12 @@ from speaak_with_gpt import SpeakWithGPT
 from web_scraper import WebScraper
 from selector import Selector
 
+dotenv.load_dotenv("../.env")
+
+OPENAI_API_KEY : str = os.getenv("OPENAI_API_KEY")
+SITES_URL : list[str] = [os.getenv("SITES_URL")] #for testing purposes after development it should take list of urls
+
+
 #this should be passed from client side
 gpt_title_analyzer_role = ("You are DevOps engineer with knowledge of linux,networking,infrastructure,pipelines and python"
                    "looking for job title return only answer 1 or 0 if it is compatible title for you knowledge")
@@ -15,10 +21,6 @@ gpt_data_analyzer_role = ("you need to distinguish text which is job description
 gpt_application_analyzer_role = ("You are senior DevOps engineer with knowledge of linux,networking,infrastructure,cloud"
                                ",pipelines and python looking for job return only email if it is suitable and 0 if  its not")
 
-dotenv.load_dotenv("../.env")
-
-OPENAI_API_KEY : str = os.getenv("OPENAI_API_KEY")
-SITES_URL : list[str] = [os.getenv("SITES_URL")] #for testing purposes after development it should take list of urls
 
 web_scraper = WebScraper(SITES_URL)
 applications = web_scraper.turn_titles_into_list()
